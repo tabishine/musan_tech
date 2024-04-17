@@ -86,35 +86,6 @@ app.get('/protected', (req, res) => {
   });
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('authForm');
-    const message = document.getElementById('message');
-  
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-  
-      const username = form.username.value;
-      const password = form.password.value;
-      const isRegister = e.submitter.id === 'registerBtn';
-  
-      const response = await fetch(isRegister ? '/register' : '/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ username, password })
-      });
-  
-      const data = await response.json();
-  
-      if (response.ok) {
-        message.textContent = isRegister ? 'Registration successful' : 'Login successful';
-        localStorage.setItem('token', data.token); // Store token in localStorage for future requests
-      } else {
-        message.textContent = data.message;
-      }
-    });
-  });
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
